@@ -6,37 +6,33 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-  SafeAreaView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import iphone_8___se_____14 from "../assets/iphone_8___se_____14.png";
 import hello from "../assets/hello.png";
-import { useEffect } from "react";
 
 const HomeScreen = (data) => {
   const navigation = useNavigation();
-  console.log(data);
   const { room, user } = data.route.params;
+  console.log(room, user);
   const handleReturn = () => {
     navigation.navigate("User", {
       index: room,
       user: user,
     });
   };
-
   return (
-    <view>
+    <View>
       <ImageBackground
         source={iphone_8___se_____14}
         resizeMode="cover"
         style={styles.Images}
       >
-        <img
-          src={hello}
+        {/* <Image
+          source={hello}
           alt="猫"
           style={{ width: "80%", marginLeft: "10%", marginTop: 180, zIndex: 1 }}
-        />
-
+        /> */}
         <View
           style={{
             flex: 1,
@@ -101,7 +97,7 @@ const HomeScreen = (data) => {
           </TouchableOpacity>
         </View>
       </ImageBackground>
-    </view>
+    </View>
   );
 };
 export default HomeScreen;
@@ -114,9 +110,4 @@ const styles = StyleSheet.create({
     height: "100vh",
     width: "100%",
   },
-
-  // sample: {
-  //   width: "100vh",
-  //   height: "100vh",
-  // },
 });
