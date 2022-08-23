@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
   container: {
     color: `#0000ff`,
   },
-  Images: {
-    height: "100vh",
-    width: "100%",
-  },
+  // Images: {
+  //   height: "100vh",
+  //   width: "100%",
+  // },
 });

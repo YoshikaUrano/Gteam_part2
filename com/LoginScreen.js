@@ -7,6 +7,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { useNavigation, NavigationContainer } from "@react-navigation/native";
+import Slider from "./slider";
 
 function LoginScreen() {
   const navigation = useNavigation();
@@ -14,9 +15,12 @@ function LoginScreen() {
   return (
     <>
       <View>
-        <View style={styles.bg}>
+        {/* <View style={styles.bg}>
           <Text style={styles.white01}>Yattoku!</Text>
           <Text style={styles.white02}>はこんなアプリ</Text>
+        </View> */}
+        <View>
+          <Slider />
         </View>
       </View>
       <View>

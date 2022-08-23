@@ -10,6 +10,7 @@ import { ref, get, child, set } from "firebase/database";
 import { useState } from "react";
 import { useNavigation, NavigationContainer } from "@react-navigation/native";
 import db from "../firebase";
+import Slider from "./slider";
 
 const RoomCreate = () => {
   const navigation = useNavigation();
@@ -56,21 +57,26 @@ const RoomCreate = () => {
     navigation.navigate("RoomScreen", { room: room });
   };
   return (
-    <KeyboardAvoidingView behavior="padding">
-      <View>
-        <TextInput placeholder="room" onChangeText={(text) => setRoom(text)} />
-        <TextInput
-          placeholder="Password"
-          onChangeText={(text) => setPass(text)}
-          secureTextEntry
-        />
-      </View>
-      <View>
-        <TouchableOpacity onPress={handleSignUp}>
-          <Text>Login</Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+    <>
+      <KeyboardAvoidingView behavior="padding">
+        <View>
+          <TextInput
+            placeholder="room"
+            onChangeText={(text) => setRoom(text)}
+          />
+          <TextInput
+            placeholder="Password"
+            onChangeText={(text) => setPass(text)}
+            secureTextEntry
+          />
+        </View>
+        <View>
+          <TouchableOpacity onPress={handleSignUp}>
+            <Text>Login</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </>
   );
 };
 export default RoomCreate;
