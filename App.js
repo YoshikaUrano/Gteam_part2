@@ -11,20 +11,6 @@ import RoomScreen from "./com/RoomScreen";
 import RoomCreate from "./com/RoomCreate";
 import RoomLogin from "./com/RoomLogin";
 
-// function HomeScreen() {
-//   const navigation = useNavigation();
-//   const handle = () => {
-//     navigation.navigate("LoginScreen");
-//   };
-//   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <TouchableOpacity onPress={handle}>
-//         <Text>Home Screen</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// }
-
 const Stack = createNativeStackNavigator();
 
 function App() {

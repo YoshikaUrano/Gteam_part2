@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { View, Text, CheckBox, StyleSheet } from "react-native";
-
+import { View, Text, StyleSheet } from "react-native";
+import { CheckBox } from "react-native-elements";
 const CheckList = (props) => {
   return (
     <View>
       <CheckBox
-        value={props.option}
-        onValueChange={props.handle}
-        color="red"
-        labelColor="#000000"
+        checked={props.option}
+        onPress={props.handle}
+        title={props.name}
+        checkedColor={props.color}
       />
-      <Text style={styles.container}>{props.name}</Text>
+      {/* <Text style={styles.container}>{props.name}</Text> */}
     </View>
   );
 };

@@ -11,12 +11,12 @@ import { useEffect, useState } from "react";
 import db from "../firebase";
 const CheckScreen = (data) => {
   const { index, user } = data.route.params;
-  const { id, name } = user;
   // idにはuserのexpoIdが入っている
   // nameにログインした人の名前が入っている
   const [task, setTask] = useState("");
   const [headName, setHeadName] = useState("");
   const [home, setHome] = useState("");
+  const [Id, setId] = useState("");
   const RoomData = ref(db);
 
   useEffect(() => {
@@ -32,7 +32,14 @@ const CheckScreen = (data) => {
         // console.log("No data available");
       }
     });
+    get(child(RoomData, `room/${index}/`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        const Data = snapshot.val();
+        setId(Data.id);
+      }
+    });
   }, []);
+
   const handleChange = (value, index) => {
     const judge = (data) => {
       data.bool = !data.bool;
@@ -47,7 +54,6 @@ const CheckScreen = (data) => {
     // valueの中には押された要素の内容が入っているからそれと内容のあうものをfirebaseから取ってきて書き換える処理をしてあげるのがベスト
     // arrayの値をfirebaseに入れ込む
     task.map((data, num) => {
-      console.log(data);
       set(ref(db, `room/${index}/task/${num}/`), {
         key: data.key,
         bool: data.bool,
@@ -59,15 +65,37 @@ const CheckScreen = (data) => {
   const room = ref(db, `room/${index}/task`);
   onValue(room, (snapshot) => {
     const Data = snapshot.val();
-    // ここに通知がきそう
     console.log(Data);
+    async function sendPushNotification(Id) {
+      // ここに通知がきそう
+      const message = {
+        // 端末指定
+        to: Id,
+        sound: "default",
+        title: "タイトルです",
+        body: "本文です",
+        data: { someData: "goes here" },
+      };
+      try {
+        await fetch("https://exp.host/--/api/v2/push/send", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Accept-encoding": "gzip, deflate",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(message),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(Data);
+    }
+    sendPushNotification(Id);
   });
+
   return (
     <>
-      {/* <View>
-          <Text>ログインしているユーザーは{name}です</Text>
-        </View> */}
-
       <View style={styles.wrap}>
         <View style={styles.textInput}>
           <Text style={styles.textcr}>ToDoリスト</Text>
@@ -85,7 +113,8 @@ const CheckScreen = (data) => {
                     // style={{ backgroundColor: "lightgray", height: 1 }}
                     name={item.key}
                     option={item.bool}
-                    // handle={() => handleChange(item, index)}
+                    color="red"
+                    handle={() => handleChange(item, index)}
                   />
                 </View>
               )
@@ -174,6 +203,7 @@ const CheckScreen = (data) => {
     </>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     color: `#0000ff`,
