@@ -24,7 +24,7 @@ const CheckScreen = (data) => {
     get(child(RoomData, `room/${index}/`)).then((snapshot) => {
       if (snapshot.exists()) {
         const Data = snapshot.val();
-        console.log(Data.task);
+        // console.log(Data.task);
         setTask(Data.task);
         setHome(Data.home);
         setHeadName(Data.name);
@@ -32,7 +32,7 @@ const CheckScreen = (data) => {
         // console.log("No data available");
       }
     });
-    get(child(RoomData, `room/${index}/`)).then((snapshot) => {
+    get(child(RoomData, `room/${index}/${user}`)).then((snapshot) => {
       if (snapshot.exists()) {
         const Data = snapshot.val();
         setId(Data.id);
@@ -40,9 +40,35 @@ const CheckScreen = (data) => {
     });
   }, []);
 
-  const handleChange = (value, index) => {
+  const handleChange = (value) => {
     const judge = (data) => {
       data.bool = !data.bool;
+
+      async function sendPushNotification(Id) {
+        // ここに通知がきそう
+        const message = {
+          // 端末指定
+          to: Id,
+          sound: "default",
+          title: "アプリ名",
+          body: `${value}をやっておきます`,
+          data: { someData: "goes here" },
+        };
+        try {
+          await fetch("https://exp.host/--/api/v2/push/send", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Accept-encoding": "gzip, deflate",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(message),
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      data.bool == true ? sendPushNotification(Id) : null;
       return data;
       // ここでfirebaseかき変えてしまえばよさそう、書き換えてしまえばよさそう、ただ全体がき変わるような処理になるから大変そう
       // 書き換えられたときにroomの情報をとってきて、変更したときに動く関数でstateの値を書き換える
@@ -65,33 +91,7 @@ const CheckScreen = (data) => {
   const room = ref(db, `room/${index}/task`);
   onValue(room, (snapshot) => {
     const Data = snapshot.val();
-    console.log(Data);
-    async function sendPushNotification(Id) {
-      // ここに通知がきそう
-      const message = {
-        // 端末指定
-        to: Id,
-        sound: "default",
-        title: "タイトルです",
-        body: "本文です",
-        data: { someData: "goes here" },
-      };
-      try {
-        await fetch("https://exp.host/--/api/v2/push/send", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Accept-encoding": "gzip, deflate",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(message),
-        });
-      } catch (error) {
-        console.log(error);
-      }
-      console.log(Data);
-    }
-    sendPushNotification(Id);
+    // console.log(Data);
   });
 
   return (
@@ -106,18 +106,15 @@ const CheckScreen = (data) => {
           data={task}
           renderItem={
             ({ item, index }) => (
-              console.log(item.key),
-              (
-                <View style={styles.textline}>
-                  <CheckList
-                    // style={{ backgroundColor: "lightgray", height: 1 }}
-                    name={item.key}
-                    option={item.bool}
-                    color="red"
-                    handle={() => handleChange(item, index)}
-                  />
-                </View>
-              )
+              <View style={styles.textline}>
+                <CheckList
+                  // style={{ backgroundColor: "lightgray", height: 1 }}
+                  name={item.key}
+                  option={item.bool}
+                  color="red"
+                  handle={() => handleChange(item, index)}
+                />
+              </View>
             )
             //もう一個をfalseかtrueであげて、checklistのほうでpropsのbooleanによって書かれるか書かれないかの処理で良さそう
           }
