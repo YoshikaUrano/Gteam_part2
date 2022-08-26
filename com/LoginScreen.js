@@ -8,10 +8,8 @@ import {
 } from "react-native";
 import { useNavigation, NavigationContainer } from "@react-navigation/native";
 import Slider from "./slider";
-
 function LoginScreen() {
   const navigation = useNavigation();
-
   return (
     <>
       <View>
@@ -19,9 +17,9 @@ function LoginScreen() {
           <Text style={styles.white01}>Yattoku!</Text>
           <Text style={styles.white02}>はこんなアプリ</Text>
         </View> */}
-        <View style={{ height: 50 }}>
+        {/* <View>
           <Slider />
-        </View>
+        </View> */}
       </View>
       <View>
         <TouchableOpacity
@@ -63,9 +61,7 @@ function LoginScreen() {
     </>
   );
 }
-
 export default LoginScreen;
-
 const styles = StyleSheet.create({
   bg: {
     backgroundColor: "#E4E4E4",

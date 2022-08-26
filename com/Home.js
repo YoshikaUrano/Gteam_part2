@@ -98,7 +98,7 @@ const HomeScreen = (data) => {
                 marginBottom: "auto",
               }}
             >
-              {text}
+              家に帰る
             </Text>
           </TouchableOpacity>
 

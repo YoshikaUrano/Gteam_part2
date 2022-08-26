@@ -18,7 +18,6 @@ const CheckScreen = (data) => {
   const [home, setHome] = useState("");
   const [Id, setId] = useState("");
   const RoomData = ref(db);
-
   useEffect(() => {
     // console.log(task);
     get(child(RoomData, `room/${index}/`)).then((snapshot) => {
@@ -39,11 +38,12 @@ const CheckScreen = (data) => {
       }
     });
   }, []);
-
+  useEffect(() => {
+    console.log(task);
+  }, [task]);
   const handleChange = (value) => {
     const judge = (data) => {
       data.bool = !data.bool;
-
       async function sendPushNotification(Id) {
         // ここに通知がきそう
         const message = {
@@ -93,14 +93,12 @@ const CheckScreen = (data) => {
     const Data = snapshot.val();
     // console.log(Data);
   });
-
   return (
     <>
       <View style={styles.wrap}>
         <View style={styles.textInput}>
           <Text style={styles.textcr}>ToDoリスト</Text>
         </View>
-
         {/* <View style={styles.bgbox}> */}
         <FlatList
           data={task}
@@ -134,9 +132,7 @@ const CheckScreen = (data) => {
           </TouchableOpacity>
         </View>
         {/* </View> */}
-
         {/*  */}
-
         <View
           style={{
             flex: 1,
@@ -169,7 +165,6 @@ const CheckScreen = (data) => {
               家に帰る
             </Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => alert("(仮)ありがとうを送信しました。")}
             style={{
@@ -200,7 +195,6 @@ const CheckScreen = (data) => {
     </>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     color: `#0000ff`,
