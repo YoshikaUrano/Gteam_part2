@@ -19,7 +19,7 @@ function LoginScreen() {
           <Text style={styles.white01}>Yattoku!</Text>
           <Text style={styles.white02}>はこんなアプリ</Text>
         </View> */}
-        <View>
+        <View style={{ height: 50 }}>
           <Slider />
         </View>
       </View>

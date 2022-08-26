@@ -17,43 +17,45 @@ const RoomCreate = () => {
   const [room, setRoom] = useState("");
   const [pass, setPass] = useState("");
   const handleSignUp = () => {
-    set(ref(db, `room/${room}`), {
-      name: room,
-      pass: pass,
-      home: "",
-      task: [
-        {
-          key: "料理を作る",
-          bool: false,
-          check: false,
-        },
-        {
-          key: "洗濯物をたたむ",
-          bool: false,
-          check: false,
-        },
-        {
-          key: "お風呂を洗う",
-          bool: false,
-          check: false,
-        },
-        {
-          key: "買い物に行く",
-          bool: false,
-          check: true,
-        },
-      ],
-      user1: {
-        name: "",
-        id: "",
-        color: "",
-      },
-      user2: {
-        name: "",
-        id: "",
-        color: "",
-      },
-    });
+    room !== "" && pass !== ""
+      ? set(ref(db, `room/${room}`), {
+          name: room,
+          pass: pass,
+          home: "",
+          task: [
+            {
+              key: "料理を作る",
+              bool: false,
+              check: false,
+            },
+            {
+              key: "洗濯物をたたむ",
+              bool: false,
+              check: false,
+            },
+            {
+              key: "お風呂を洗う",
+              bool: false,
+              check: false,
+            },
+            {
+              key: "買い物に行く",
+              bool: false,
+              check: true,
+            },
+          ],
+          user1: {
+            name: "",
+            id: "",
+            color: "",
+          },
+          user2: {
+            name: "",
+            id: "",
+            color: "",
+          },
+        })
+      : alert("ルーム名orパスワードが空欄です");
     navigation.navigate("RoomScreen", { room: room });
   };
   return (
