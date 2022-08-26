@@ -8,10 +8,10 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
   StyleSheet,
 } from "react-native";
 import db from "../firebase";
-
 // フォアグラウンド（アプリが立ち上がっている）のときの通知の受け取り方
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -20,7 +20,6 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false, // アプリの通知数が携帯のホーム上に反映されるかどうか
   }),
 });
-
 const UserCreate = (data) => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
@@ -31,19 +30,16 @@ const UserCreate = (data) => {
       // registerForPushNotificationsAsync発火
       setExpoPushToken(token)
     );
-
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
         setNotification(notification);
       });
-
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
       });
-
     return () => {
       Notifications.removeNotificationSubscription(
         notificationListener.current
@@ -51,7 +47,6 @@ const UserCreate = (data) => {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-
   const { room, user } = data.route.params;
   const [userName, setUserName] = useState("");
   const [userColor, setUserColor] = useState("#D64949");
@@ -85,92 +80,156 @@ const UserCreate = (data) => {
   };
   return (
     <>
-      <View>
-        <TextInput
-          placeholder="username"
-          onChangeText={(text) => {
-            setUserName(text);
-          }}
-        />
-        <View
-          style={{
-            // flex: 1,
-            width: "100%",
-            flexDirection: "row",
-            justifyContent: "space-around",
-          }}
-        >
-          <TouchableOpacity onPress={handleRed}>
-            <View
+      <View
+        style={{
+          backgroundColor: "#FFFFFF",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <KeyboardAvoidingView behavior="padding">
+          <View>
+            <Text style={styles.yours01}>あなたのこと</Text>
+            <Text style={styles.yours02}>教えてください</Text>
+          </View>
+          <View>
+            <View>
+              <Text style={styles.title1}>あなたの名前</Text>
+            </View>
+          </View>
+          <TextInput
+            placeholder="あなたの名前を入力してください"
+            onChangeText={(text) => {
+              setUserName(text);
+            }}
+            style={{
+              alignSelf: "flex-start",
+              borderWidth: 1,
+              borderColor: "#ACACAC",
+              height: 48,
+              width: "90%",
+              marginLeft: "5%",
+              paddingLeft: "2%",
+              borderRadius: 8,
+              fontSize: 16,
+            }}
+          />
+          <View>
+            <Text style={styles.title2}>あなたを表す色は？</Text>
+          </View>
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              justifyContent: "space-around",
+            }}
+          >
+            <TouchableOpacity onPress={handleRed}>
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor:
+                    userColor == "#D64949" ? "#D64949" : "#DE6D6D",
+                  borderWidth: userColor == "#D64949" ? 2 : 1,
+                  borderColor: userColor == "#D64949" ? "#333333" : "#BCBCBC",
+                  borderRadius: 999,
+                }}
+              ></View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleOrange}>
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor:
+                    userColor == "#F08233" ? "#F08233" : "#F39B5C",
+                  borderWidth: userColor == "#F08233" ? 2 : 1,
+                  borderColor: userColor == "#F08233" ? "#333333" : "#BCBCBC",
+                  borderRadius: 999,
+                }}
+              ></View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleYellow}>
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor:
+                    userColor == "#FFE800" ? "#FFE800" : "#FFEC33",
+                  borderWidth: userColor == "#FFE800" ? 2 : 1,
+                  borderColor: userColor == "#FFE800" ? "#333333" : "#BCBCBC",
+                  borderRadius: 999,
+                }}
+              ></View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleGreen}>
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor:
+                    userColor == "#009245" ? "#009245" : "#33A86A",
+                  borderWidth: userColor == "#009245" ? 2 : 1,
+                  borderColor: userColor == "#009245" ? "#333333" : "#BCBCBC",
+                  borderRadius: 999,
+                }}
+              ></View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleBlue}>
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor:
+                    userColor == "#135CD1" ? "#135CD1" : "#427DDA",
+                  borderWidth: userColor == "#135CD1" ? 2 : 1,
+                  borderColor: userColor == "#135CD1" ? "#333333" : "#BCBCBC",
+                  borderRadius: 999,
+                }}
+              ></View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handlePurple}>
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor:
+                    userColor == "#8142C1" ? "#8142C1" : "#9A68CD",
+                  borderWidth: userColor == "#8142C1" ? 2 : 1,
+                  borderColor: userColor == "#8142C1" ? "#333333" : "#BCBCBC",
+                  borderRadius: 999,
+                }}
+              ></View>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            onPress={handleUser}
+            style={{
+              backgroundColor: "#FFAA36",
+              width: "90%",
+              height: 50,
+              borderRadius: 8,
+              overflow: "hidden",
+              marginLeft: "5%",
+              marginTop: "13%",
+            }}
+          >
+            <Text
               style={{
-                width: 30,
-                height: 30,
-                backgroundColor: "#D64949",
-                borderWidth: 3,
-                borderColor: userColor == "#D64949" ? "black" : "#797979",
+                color: "#FFFFFF",
+                textAlign: "center",
+                fontSize: 18,
+                fontWeight: "bold",
+                marginTop: "4%",
               }}
-            ></View>
+            >
+              アプリを始める
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleOrange}>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                backgroundColor: "#F08233",
-                borderWidth: 3,
-                borderColor: userColor == "#F08233" ? "black" : "#797979",
-              }}
-            ></View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleYellow}>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                backgroundColor: "#FFE800",
-                borderWidth: 3,
-                borderColor: userColor == "#FFE800" ? "black" : "#797979",
-              }}
-            ></View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleGreen}>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                backgroundColor: "#009245",
-                borderWidth: 3,
-                borderColor: userColor == "#009245" ? "black" : "#797979",
-              }}
-            ></View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleBlue}>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                backgroundColor: "#135CD1",
-                borderWidth: 3,
-                borderColor: userColor == "#135CD1" ? "black" : "#797979",
-              }}
-            ></View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handlePurple}>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                backgroundColor: "#8142C1",
-                borderWidth: 3,
-                borderColor: userColor == "#8142C1" ? "black" : "#797979",
-              }}
-            ></View>
-          </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
       </View>
-      <TouchableOpacity onPress={handleUser}>
-        <Text>Login</Text>
-      </TouchableOpacity>
     </>
   );
 };
@@ -186,7 +245,6 @@ async function registerForPushNotificationsAsync() {
       // console.log(existingStatus);
       // 許可されていたためgranted(true)が返ってきた。ようは許可はしているということだ
       let finalStatus = existingStatus;
-
       if (existingStatus !== "granted") {
         // もし権限の状態が許可が降りていなかったら処理が走る
         //ユーザーに許可をもらういに行く
@@ -206,7 +264,6 @@ async function registerForPushNotificationsAsync() {
     } else {
       alert("Must use physical device for Push Notifications");
     }
-
     if (Platform.OS === "android") {
       //端末がandroidのとき処理が動く
       Notifications.setNotificationChannelAsync(
@@ -225,3 +282,30 @@ async function registerForPushNotificationsAsync() {
   console.log(token);
   return token;
 }
+const styles = StyleSheet.create({
+  yours01: {
+    color: "#FFAA36",
+    fontSize: 36,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: "30%",
+  },
+  yours02: {
+    color: "#FFAA36",
+    fontSize: 36,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: "30%",
+  },
+  title1: {
+    fontSize: 16,
+    marginLeft: "7%",
+    marginBottom: 16,
+  },
+  title2: {
+    fontSize: 16,
+    marginLeft: "7%",
+    marginBottom: 16,
+    marginTop: "6%",
+  },
+});
