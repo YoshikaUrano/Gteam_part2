@@ -17,9 +17,11 @@ const RoomLogin = () => {
   const [pass, setPass] = useState("");
   const handleLogin = () => {
     const RoomData = ref(db);
+    console.log(RoomData);
     get(child(RoomData, `room/${room}/`)).then((snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
+        console.log(data);
         data.pass == pass
           ? navigation.navigate("RoomScreen", { rooms: data, room: room })
           : alert("パスワードが間違えています");

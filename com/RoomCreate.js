@@ -21,7 +21,7 @@ const RoomCreate = () => {
       ? set(ref(db, `room/${room}`), {
           name: room,
           pass: pass,
-          home: "",
+          home: home,
           task: [
             {
               key: "料理を作る",
