@@ -10,6 +10,7 @@ import HomeScreen from "./com/Home";
 import RoomScreen from "./com/RoomScreen";
 import RoomCreate from "./com/RoomCreate";
 import RoomLogin from "./com/RoomLogin";
+// import Api from "./com/Api";
 
 const Stack = createNativeStackNavigator();
 
