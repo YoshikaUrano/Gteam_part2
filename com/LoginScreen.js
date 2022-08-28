@@ -13,23 +13,20 @@ function LoginScreen() {
   return (
     <>
       <View>
-        {/* <View style={styles.bg}>
-          <Text style={styles.white01}>Yattoku!</Text>
-          <Text style={styles.white02}>はこんなアプリ</Text>
-        </View> */}
-
-        <View>
-          <Slider />
-        </View>
-
+        <Slider />
       </View>
       <View
         style={{
           backgroundColor: "#FFFFFF",
           position: "absolute",
           bottom: 0,
-          left: 0,
           width: "100%",
+          shadowColor: "#333333",
+          shadowOffset: {
+            height: -3,
+          },
+          shadowRadius: 3,
+          shadowOpacity: 0.3,
         }}
       >
         <TouchableOpacity
@@ -41,7 +38,7 @@ function LoginScreen() {
           <Text
             style={{
               color: "white",
-              fontSize: 16,
+              fontSize: 18,
               textAlign: "center",
               fontWeight: "bold",
               marginTop: "4%",
@@ -59,9 +56,10 @@ function LoginScreen() {
             style={{
               color: "#FFAA36",
               textAlign: "center",
-              fontSize: 16,
-              marginTop: "6%",
+              fontSize: 18,
+              marginTop: "7%",
               fontWeight: "bold",
+              marginBottom: "7%",
             }}
           >
             既存のルームに参加
@@ -73,32 +71,18 @@ function LoginScreen() {
 }
 export default LoginScreen;
 const styles = StyleSheet.create({
-  bg: {
-    backgroundColor: "#E4E4E4",
-    minHeight: "75vh",
-  },
-  white01: {
-    color: "white",
-    fontSize: 42,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: "55%",
-    shadowColor: "black",
-    shadowOffset: "width",
-  },
-  white02: {
-    color: "white",
-    fontSize: 26,
-    textAlign: "center",
-  },
   btn: {
     backgroundColor: "#FFAA36",
     width: "90%",
-    height: 47,
-    borderRadius: 5,
-    borderWidth: 0,
-    overflow: "hidden",
-    marginTop: "14%",
+    height: 50,
+    borderRadius: 8,
     marginLeft: "5%",
+    marginTop: "7%",
+    shadowColor: "#333333",
+    shadowOffset: {
+      height: 3,
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.3,
   },
 });

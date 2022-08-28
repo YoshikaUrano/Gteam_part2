@@ -62,16 +62,18 @@ const HomeScreen = (data) => {
         resizeMode="cover"
         style={styles.Images}
       >
-        {/* <Image
+        <Image
           source={hello}
           alt="猫"
           style={{ width: "80%", marginLeft: "10%", marginTop: 180, zIndex: 1 }}
-        /> */}
+        />
         <View
           style={{
             flex: 1,
             width: "100%",
             flexDirection: "row",
+            position: "absolute",
+            bottom: 0,
           }}
         >
           <TouchableOpacity
@@ -140,8 +142,8 @@ const styles = StyleSheet.create({
   container: {
     color: `#0000ff`,
   },
-  // Images: {
-  //   height: "100vh",
-  //   width: "100%",
-  // },
+  Images: {
+    // height: "100vh",
+    width: "100%",
+  },
 });
