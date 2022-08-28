@@ -73,7 +73,7 @@ const HomeScreen = (data) => {
             width: "100%",
             flexDirection: "row",
             position: "absolute",
-            bottom: 0,
+            bottom: -32.5,
           }}
         >
           <TouchableOpacity
@@ -81,18 +81,22 @@ const HomeScreen = (data) => {
             style={{
               backgroundColor: "#FFAA36",
               width: "42%",
-              height: 47,
+              height: 50,
               borderRadius: 5,
               borderWidth: 0,
-              overflow: "hidden",
               marginLeft: "6%",
               marginTop: 240,
-              zIndex: 2,
+              shadowColor: "#333333",
+              shadowOffset: {
+                height: 3,
+              },
+              shadowRadius: 3,
+              shadowOpacity: 0.3,
             }}
           >
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: "bold",
                 color: "#fff",
                 textAlign: "center",
@@ -109,18 +113,22 @@ const HomeScreen = (data) => {
             style={{
               backgroundColor: "#FFAA36",
               width: "42%",
-              height: 47,
+              height: 50,
               borderRadius: 5,
               borderWidth: 0,
-              overflow: "hidden",
               marginTop: 240,
               marginLeft: "3%",
-              zIndex: 2,
+              shadowColor: "#333333",
+              shadowOffset: {
+                height: 3,
+              },
+              shadowRadius: 3,
+              shadowOpacity: 0.3,
             }}
           >
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: "bold",
                 color: "#fff",
                 textAlign: "center",
